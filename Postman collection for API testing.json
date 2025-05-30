@@ -1,0 +1,1173 @@
+{
+	"info": {
+		"_postman_id": "6bfa4481-a97c-4e87-afe8-e717dd75575b",
+		"name": "Library Management System - Complete API Tests",
+		"description": "Complete test collection for all Library Management System endpoints with proper authentication and sample data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26047114",
+		"_collection_link": "https://restless-satellite-481027.postman.co/workspace/Library_Management_System_Chall~5c523de9-dedd-40d3-a725-d21c3827ea6d/collection/26047114-6bfa4481-a97c-4e87-afe8-e717dd75575b?action=share&source=collection_link&creator=26047114"
+	},
+	"item": [
+		{
+			"name": "Authentication Tests",
+			"item": [
+				{
+					"name": "Login - Admin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Librarian",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"librarian1\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Staff",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"staff1\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Current-User-Data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"isbn\": \"978-0-7432-7356-5\",\n    \"summary\": \"A classic American novel set in the Jazz Age, exploring themes of wealth, love, and the American Dream.\",\n    \"publicationYear\": 1925,\n    \"language\": \"English\",\n    \"edition\": \"First Edition\",\n    \"totalCopies\": 5,\n    \"availableCopies\": 5,\n    \"authors\": [\n        {\n            \"firstName\": \"F. Scott\",\n            \"lastName\": \"Fitzgerald\",\n            \"biography\": \"American novelist and short story writer\"\n        }\n    ],\n    \"publisher\": {\n        \"name\": \"Charles Scribner's Sons\",\n        \"address\": \"New York, NY\",\n        \"contactEmail\": \"info@scribner.com\"\n    },\n    \"category\": {\n        \"name\": \"Classic Literature\",\n        \"description\": \"Timeless literary works\"\n    }\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/me"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Get All Users (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/users/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser\",\n    \"password\": \"password123\",\n    \"email\": \"newuser@library.com\",\n    \"firstName\": \"New\",\n    \"lastName\": \"User\",\n    \"role\": \"STAFF\"\n}"
+						},
+						"url": "{{baseUrl}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updateduser\",\n    \"email\": \"updated@library.com\",\n    \"firstName\": \"Updated\",\n    \"lastName\": \"User\",\n    \"role\": \"LIBRARIAN\"\n}"
+						},
+						"url": "{{baseUrl}}/api/users/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/api/users/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Activities (Admin & Librarian))",
+			"item": [
+				{
+					"name": "Get All Users Activities",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/users/activity"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Activities By Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/users/activity/1"
+					},
+					"response": []
+				}
+			],
+			"description": "Data Sorted in Desc Order By created Date"
+		},
+		{
+			"name": "Book Management",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/books"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/books/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books by Title",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search?title=Java",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Java"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books by Author",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search?author=Joshua",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "Joshua"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books by ISBN",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search?isbn=978-0134685991",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"search"
+							],
+							"query": [
+								{
+									"key": "isbn",
+									"value": "978-0134685991"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Books",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/books/available"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Book (Librarian/Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"isbn\": \"978-0-7432-7356-5\",\n    \"summary\": \"A classic American novel set in the Jazz Age, exploring themes of wealth, love, and the American Dream.\",\n    \"publicationYear\": 1925,\n    \"language\": \"English\",\n    \"edition\": \"First Edition\",\n    \"totalCopies\": 5,\n    \"availableCopies\": 5,\n    \"authors\": [\n        {\n            \"firstName\": \"F. Scott\",\n            \"lastName\": \"Fitzgerald\",\n            \"biography\": \"American novelist and short story writer\"\n        }\n    ],\n    \"publisher\": {\n        \"name\": \"Charles Scribner's Sons\",\n        \"address\": \"New York, NY\",\n        \"contactEmail\": \"info@scribner.com\"\n    },\n    \"category\": {\n        \"name\": \"Classic Literature\",\n        \"description\": \"Timeless literary works\"\n    }\n}"
+						},
+						"url": "{{baseUrl}}/api/books"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book (Librarian/Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Great Gatsby - Updated Edition\",\n    \"isbn\": \"978-0-7432-7356-5\",\n    \"summary\": \"A classic American novel set in the Jazz Age, exploring themes of wealth, love, and the American Dream. Updated with new annotations.\",\n    \"publicationYear\": 1925,\n    \"language\": \"English\",\n    \"edition\": \"Annotated Edition\",\n    \"totalCopies\": 7,\n    \"availableCopies\": 7\n}"
+						},
+						"url": "{{baseUrl}}/api/books/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/api/books/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member Management",
+			"item": [
+				{
+					"name": "Get All Members",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/members"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Member by ID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/members/{{memberId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Members by Name",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/search?name=John",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "John"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Members by Email",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/search?name=alice.d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "alice.d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Member by email address",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "password123",
+								"username": "librarian1"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/members/by-email?email=alice.dd@email.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"members",
+								"by-email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "alice.dd@email.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Members",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/members/active"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Member (Librarian/Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Johnson\",\n  \"email\": \"alice.dd@email.com\",\n  \"phone\": \"+1-555-0123\",\n  \"address\": \"123 Main St, Anytown, USA\"\n}\n"
+						},
+						"url": "{{baseUrl}}/api/members"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Member (Librarian/Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Alice\",\n    \"lastName\": \"Johnson-Smith\",\n    \"email\": \"alice.johnson.smith@email.com\",\n    \"phone\": \"+1-555-0124\",\n    \"address\": \"456 Oak Ave, Newtown, USA\",\n    \"dateOfBirth\": \"1990-05-15\"\n}"
+						},
+						"url": "{{baseUrl}}/api/members/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Renew Membership (Librarian/Admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": "{{baseUrl}}/api/members/1/renew"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Member (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/api/members/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Borrowing Transactions",
+			"item": [
+				{
+					"name": "Get All Transactions",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/transactions"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction by ID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/transactions/6"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Overdue Transactions",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/transactions/overdue"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transactions by Member",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/transactions/member/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrow Book",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": 2,\r\n  \"memberId\":2,\r\n  \"issuedByUserId\":3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/transactions/borrow"
+					},
+					"response": []
+				},
+				{
+					"name": "Return Book",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/transactions/{{transactionId}}/return?userId={{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								"{{transactionId}}",
+								"return"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Renew Book",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/transactions/2/renew?userId=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								"2",
+								"renew"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category Test(Admin Only)",
+			"item": [
+				{
+					"name": "Add Category",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Fantasy sub\",\r\n  \"description\": \"Fantasy\",\r\n  \"parentId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subcategories To the parent",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/api/category/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Cateogry by Name",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/category/search?name=fa",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "fa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Name",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/category/by-name?name=Classic Literature",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"by-name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Classic Literature"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Error Handling Tests",
+			"item": [
+				{
+					"name": "Unauthorized Access (No Auth)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/books"
+					},
+					"response": []
+				},
+				{
+					"name": "Forbidden Access (Staff accessing Admin endpoint)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Book Not Found",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/books/999"
+					},
+					"response": []
+				},
+				{
+					"name": "Member Not Found",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/api/members/999"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Book Creation (Missing Required Fields)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "librarian1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"isbn\": \"\"\n}"
+						},
+						"url": "{{baseUrl}}/api/books"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrow Unavailable Book",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "staff1",
+								"password": "password123"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/transactions/borrow?bookId=50&memberId=1&userId=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								"borrow"
+							],
+							"query": [
+								{
+									"key": "bookId",
+									"value": "50"
+								},
+								{
+									"key": "memberId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"username": "admin",
+			"password": "password123"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
