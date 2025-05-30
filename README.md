@@ -1,6 +1,6 @@
 # 📚 Library Management System
 
-A comprehensive, enterprise-grade library management system built with Spring Boot, featuring role-based access control, transaction management, and complete CRUD operations for books, members, and borrowing activities.
+A comprehensive, enterprise-grade library management system built with Spring Boot, featuring role-based access control, transaction management, and complete CRUD operations for books, members, and borrowing .
 
 ## 🌟 Features
 
@@ -113,6 +113,24 @@ The system uses a relational database with the following key entities:
    mysql -u username -p library_management_db < sql-scripts/schema.sql
    mysql -u username -p library_management_db < sql-scripts/sample-data.sql
    ```
+## 🐳 Docker Setup (Optional)
+This project supports Docker to simplify setup and deployment.
+1. Build and Run with Docker Compose
+```bash
+docker-compose up --build
+```
+This command will:
+- Build the Spring Boot application image.
+- Set up a MySQL container.
+- Start everything in a connected environment.
+  
+2. Access the Application 
+- API Base URL: http://localhost:8080
+- MySQL: localhost:3306, user: test, password: 123456
+
+3. Docker Files Overview
+- Dockerfile: Defines the Spring Boot application image.
+- docker-compose.yml: Sets up the app with a MySQL container.
 ## 🔑 Default Users
 
 | Username | Password | Role | Permissions |
@@ -219,7 +237,7 @@ The project includes a comprehensive Postman collection for API testing:
 - **Backend**: Spring Boot 3.x, Spring Security, Spring Data JPA
 - **Database**: MySQL with Hibernate ORM
 - **Build Tool**: Maven
-- **Testing**: Postman
+- **Testing**: Postman ,junit
 - **Security**: BCrypt, Role-based access control
 
 **Made with ❤️ for code81**
