@@ -217,7 +217,7 @@ The project includes a comprehensive Postman collection for API testing:
 ## 🛠️ Technologies Used
 
 - **Backend**: Spring Boot 3.x, Spring Security, Spring Data JPA
-- **Database**: MySQL/PostgreSQL with Hibernate ORM
+- **Database**: MySQL with Hibernate ORM
 - **Build Tool**: Maven
 - **Testing**: Postman
 - **Security**: BCrypt, Role-based access control
