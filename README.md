@@ -6,7 +6,7 @@ A comprehensive, enterprise-grade library management system built with Spring Bo
 
 ### 📖 **Book Management**
 - Complete book catalog with authors, publishers, and categories
-- Advanced search functionality (title, author, ISBN, publication year)
+- Advanced search functionality (title, author, ISBN)
 - Copy management and availability tracking
 - Hierarchical category system
 
