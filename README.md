@@ -28,12 +28,6 @@ A comprehensive, enterprise-grade library management system built with Spring Bo
 - Comprehensive activity logging
 - User session management
 
-### 📊 **Reporting & Analytics**
-- Transaction history tracking
-- Overdue book reports
-- User activity monitoring
-- Member borrowing statistics
-
 ## 🏗️ System Architecture
 
 The application follows a clean, layered architecture:
