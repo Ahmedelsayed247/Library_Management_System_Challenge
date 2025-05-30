@@ -11,9 +11,9 @@ A comprehensive, enterprise-grade library management system built with Spring Bo
 - Hierarchical category system
 
 ### 👥 **Member Management** 
-- Member registration and profile management
+- Librarian and Admin Controlled Member Registration and Profile Management
 - Membership renewal and status tracking
-- Advanced member search capabilities
+- Advanced Member Search for Efficient Administration
 
 ### 🔄 **Borrowing System**
 - Book checkout and return processing
