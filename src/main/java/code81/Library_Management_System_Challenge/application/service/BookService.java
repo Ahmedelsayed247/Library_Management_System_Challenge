@@ -2,10 +2,7 @@ package code81.Library_Management_System_Challenge.application.service;
 
 import code81.Library_Management_System_Challenge.application.exception.DuplicateResourceException;
 import code81.Library_Management_System_Challenge.application.exception.ResourceNotFoundException;
-import code81.Library_Management_System_Challenge.domain.model.Author;
-import code81.Library_Management_System_Challenge.domain.model.Book;
-import code81.Library_Management_System_Challenge.domain.model.Category;
-import code81.Library_Management_System_Challenge.domain.model.Publisher;
+import code81.Library_Management_System_Challenge.domain.model.*;
 import code81.Library_Management_System_Challenge.domain.repository.AuthorRepository;
 import code81.Library_Management_System_Challenge.domain.repository.BookRepository;
 import code81.Library_Management_System_Challenge.domain.repository.CategoryRepository;
@@ -31,6 +28,11 @@ public class BookService {
     private  PublisherRepository publisherRepository;
     @Autowired
     private  CategoryRepository categoryRepository;
+    @Autowired
+    private UserActivityService userActivityService;
+    @Autowired
+    private UserService userService;
+
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
@@ -49,10 +51,17 @@ public class BookService {
             throw new DuplicateResourceException("Book with ISBN already exists");
         }
 
-
         Book book = mapDtoToEntity(bookDTO);
+        Book savedBook = bookRepository.save(book);
 
-        return bookRepository.save(book);
+        // Log activity
+        User currentUser = userService.getCurrentUser();
+        if (currentUser != null) {
+            userActivityService.logActivity(currentUser, "BOOK_CREATED",
+                    String.format("Created new book: '%s' (ISBN: %s)", savedBook.getTitle(), savedBook.getIsbn()));
+        }
+
+        return savedBook;
     }
 
     private Book mapDtoToEntity(BookDTO dto) {
@@ -118,6 +127,8 @@ public class BookService {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + id));
 
+        String originalTitle = book.getTitle();
+
         if (bookDTO.getTitle() != null) book.setTitle(bookDTO.getTitle());
         if (bookDTO.getIsbn() != null) book.setIsbn(bookDTO.getIsbn());
         if (bookDTO.getSummary() != null) book.setSummary(bookDTO.getSummary());
@@ -145,7 +156,16 @@ public class BookService {
         if (bookDTO.getAvailableCopies() != null)
             book.setAvailable(bookDTO.getAvailableCopies() > 0);
 
-        return bookRepository.save(book);
+        Book updatedBook = bookRepository.save(book);
+
+        // Log activity
+        User currentUser = userService.getCurrentUser();
+        if (currentUser != null) {
+            userActivityService.logActivity(currentUser, "BOOK_UPDATED",
+                    String.format("Updated book: '%s' (ID: %d)", originalTitle, id));
+        }
+
+        return updatedBook;
     }
     public Book updateBookAvailability(Long id, int availableCopies, boolean isAvailable) {
         Book book = bookRepository.findById(id)

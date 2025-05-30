@@ -6,6 +6,9 @@ import code81.Library_Management_System_Challenge.domain.model.User;
 import code81.Library_Management_System_Challenge.domain.repository.UserRepository;
 import code81.Library_Management_System_Challenge.web.dto.UserUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +79,14 @@ public class UserService {
 
         userActivityService.logActivity(user, "USER_DELETED", "User account deleted");
         userRepository.delete(user);
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        return getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     public List<User> getUsersByRole(Role role) {

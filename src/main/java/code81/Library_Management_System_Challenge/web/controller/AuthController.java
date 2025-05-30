@@ -1,10 +1,10 @@
 package code81.Library_Management_System_Challenge.web.controller;
 
 import code81.Library_Management_System_Challenge.application.service.UserService;
+import code81.Library_Management_System_Challenge.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,36 +18,32 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/me")
-    public ResponseEntity<Map<String, Object>> getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    public ResponseEntity<Map<String, Object>> getCurrentUserInfo() {
+        User currentUser = userService.getCurrentUser();
 
-        return userService.getUserByUsername(username)
-                .map(user -> {
-                    Map<String, Object> response = new HashMap<>();
-                    response.put("id", user.getId());
-                    response.put("username", user.getUsername());
-                    response.put("email", user.getEmail());
-                    response.put("firstName", user.getFirstName());
-                    response.put("lastName", user.getLastName());
-                    response.put("role", user.getRole());
-                    response.put("active", user.isActive());
-                    return ResponseEntity.ok(response);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", currentUser.getId());
+        response.put("username", currentUser.getUsername());
+        response.put("email", currentUser.getEmail());
+        response.put("firstName", currentUser.getFirstName());
+        response.put("lastName", currentUser.getLastName());
+        response.put("role", currentUser.getRole());
+        response.put("active", currentUser.isActive());
+
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        User currentUser = userService.getCurrentUser();
 
         // Update last login
-        userService.updateLastLogin(username);
+        userService.updateLastLogin(currentUser.getUsername());
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Login successful");
-        response.put("username", username);
+        response.put("username", currentUser.getUsername());
 
         return ResponseEntity.ok(response);
     }

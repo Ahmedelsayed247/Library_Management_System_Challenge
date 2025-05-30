@@ -2,6 +2,7 @@ package code81.Library_Management_System_Challenge.application.service;
 import code81.Library_Management_System_Challenge.application.exception.ResourceNotFoundException;
 import code81.Library_Management_System_Challenge.application.exception.InvalidOperationException;
 import code81.Library_Management_System_Challenge.domain.model.Member;
+import code81.Library_Management_System_Challenge.domain.model.User;
 import code81.Library_Management_System_Challenge.domain.repository.MemberRepository;
 import code81.Library_Management_System_Challenge.web.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    UserActivityService userActivityService ;
+    @Autowired
+    UserService userService ;
 
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -40,6 +45,14 @@ public class MemberService {
         member.setPhone(memberDto.getPhone());
         member.setAddress(memberDto.getAddress());
         Member saved = memberRepository.save(member);
+        // Log activity
+        User currentUser = userService.getCurrentUser();
+        if (currentUser != null) {
+            userActivityService.logActivity(currentUser, "MEMBER_CREATED",
+                    String.format("Created new member: %s %s (Email: %s)",
+                            saved.getFirstName(), saved.getLastName(), saved.getEmail()));
+        }
+
         // Convert back to DTO
         MemberDTO response = new MemberDTO();
         response.setFirstName(saved.getFirstName());
@@ -54,6 +67,8 @@ public class MemberService {
     public Member updateMember(Long id, Member memberDetails) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + id));
+        String originalName = member.getFullName();
+        String originalEmail = member.getEmail();
 
         member.setFirstName(memberDetails.getFirstName());
         member.setLastName(memberDetails.getLastName());
@@ -70,13 +85,31 @@ public class MemberService {
 
         member.setActive(memberDetails.isActive());
 
-        return memberRepository.save(member);
+        Member updatedMember = memberRepository.save(member);
+
+        // Log activity
+        User currentUser = userService.getCurrentUser();
+        if (currentUser != null) {
+            userActivityService.logActivity(currentUser, "MEMBER_UPDATED",
+                    String.format("Updated member: %s (ID: %d) - Previous: %s (%s)",
+                            updatedMember.getFullName(), id, originalName, originalEmail));
+        }
+
+        return updatedMember;
     }
 
     public void deleteMember(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + id));
+        String memberName = member.getFullName();
+        String memberEmail = member.getEmail();
         memberRepository.delete(member);
+        // Log activity
+        User currentUser = userService.getCurrentUser();
+        if (currentUser != null) {
+            userActivityService.logActivity(currentUser, "MEMBER_DELETED",
+                    String.format("Deleted member: %s (Email: %s)", memberName, memberEmail));
+        }
     }
 
     public List<Member> getActiveMembers() {
