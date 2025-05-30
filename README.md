@@ -26,7 +26,6 @@ A comprehensive, enterprise-grade library management system built with Spring Bo
 - Role-based access control (Admin, Librarian, Staff)
 - Secure authentication with BCrypt password encoding
 - Comprehensive activity logging
-- User session management
 
 ## 🏗️ System Architecture
 
